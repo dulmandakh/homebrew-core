@@ -28,9 +28,16 @@ class Renovate < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "50358b6ee1a24b2208b2cf931afd60b8e0ef34dc9e51ef9631dd78802d8f8172"
   end
 
-  depends_on "node"
+  depends_on "node" => :test
 
   uses_from_macos "git", since: :monterey
+
+  def caveats
+    <<~EOS
+      renovate requires a Node installation to function. You can install one with:
+        brew install node
+    EOS
+  end
 
   def install
     system "npm", "install", *Language::Node.std_npm_install_args(libexec)
